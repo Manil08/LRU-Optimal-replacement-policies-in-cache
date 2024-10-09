@@ -123,3 +123,5 @@ Each metric is color-coded for easy comparison, where:
 
 
 Each cache replacement policy has its advantages and disadvantages, depending on workload characteristics (e.g., temporal locality, spatial locality). LRU is effective in scenarios where recent usage patterns tend to repeat, while the Optimal policy provides the best theoretical performance, serving as a benchmark for evaluating practical implementations like LRU. Understanding the differences between these policies helps in choosing the right approach for specific applications and workloads.
+
+
