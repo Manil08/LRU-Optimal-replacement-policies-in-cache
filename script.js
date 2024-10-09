@@ -3,20 +3,27 @@ document.getElementById('cacheForm').addEventListener('submit', function (e) {
     
     const cacheSize = document.getElementById('cacheSize').value;
     const addressSequence = document.getElementById('addressSequence').value.split(',').map(Number);
-    const algorithm = document.getElementById('algorithm').value;  // Get selected algorithm
-
+    
     fetch('/simulate', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ cacheSize, addressSequence, algorithm })  // Include algorithm in the request
+        body: JSON.stringify({ cacheSize, addressSequence })
     })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('output').textContent = data.result || data.error;
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(text => { throw new Error(text.error) });
+        }
+        return response.text();  // Change to handle HTML response
+    })
+    .then(html => {
+        // Open a new window and write the HTML response
+        const newWindow = window.open();
+        newWindow.document.write(html);
+        newWindow.document.close();
     })
     .catch(error => {
-        document.getElementById('output').textContent = 'Error: ' + error.message;
+        alert('Error: ' + error.message);
     });
 });

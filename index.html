@@ -18,7 +18,7 @@
             margin: auto;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        input, textarea, select {
+        input, textarea {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -43,13 +43,8 @@
         <form id="cacheForm">
             <input type="number" id="cacheSize" placeholder="Enter Cache Size" required>
             <textarea id="addressSequence" placeholder="Enter Address Sequence (comma-separated)" required></textarea>
-            <select id="algorithm">
-                <option value="LRU">LRU</option>
-                <option value="OPTIMAL">OPTIMAL</option>
-            </select>
             <button type="submit">Simulate</button>
         </form>
-        <pre id="output"></pre>
     </div>
     <script src="script.js"></script>
 </body>

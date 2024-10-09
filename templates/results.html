@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 50px;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .comparison {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .policy-box {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            width: 45%;
+            text-align: center;
+        }
+        .good {
+            background-color: #c8e6c9; /* Light green */
+        }
+        .bad {
+            background-color: #ffcdd2; /* Light red */
+        }
+        .neutral {
+            background-color: #fff59d; /* Light yellow */
+        }
+        .result {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simulation Results</h1>
+        
+        <h2>LRU vs Optimal</h2>
+        <h2>Total Accesses: {{ results['LRU']['total_accesses'] }}</h2>
+        <div class="comparison">
+            <div class="policy-box">
+                <h2>LRU Results</h2>
+                <div class="result {{ 'good' if results['LRU']['total_misses'] < results['OPTIMAL']['total_misses'] else 'bad' if results['LRU']['total_misses'] > results['OPTIMAL']['total_misses'] else 'neutral' }}">
+                    Total Misses: {{ results['LRU']['total_misses'] }}
+                </div>
+                <div class="result {{ 'good' if results['LRU']['compulsory_misses'] < results['OPTIMAL']['compulsory_misses'] else 'bad' if results['LRU']['compulsory_misses'] > results['OPTIMAL']['compulsory_misses'] else 'neutral' }}">
+                    Compulsory Misses: {{ results['LRU']['compulsory_misses'] }}
+                </div>
+                <div class="result {{ 'good' if results['LRU']['capacity_misses'] < results['OPTIMAL']['capacity_misses'] else 'bad' if results['LRU']['capacity_misses'] > results['OPTIMAL']['capacity_misses'] else 'neutral' }}">
+                    Capacity Misses: {{ results['LRU']['capacity_misses'] }}
+                </div>
+                <div class="result {{ 'good' if results['LRU']['total_hits'] > results['OPTIMAL']['total_hits'] else 'bad' if results['LRU']['total_hits'] < results['OPTIMAL']['total_hits'] else 'neutral' }}">
+                    Total Hits: {{ results['LRU']['total_hits'] }}
+                </div>
+            </div>
+
+            <div class="policy-box">
+                <h2>Optimal Results</h2>
+                <div class="result {{ 'good' if results['OPTIMAL']['total_misses'] < results['LRU']['total_misses'] else 'bad' if results['OPTIMAL']['total_misses'] > results['LRU']['total_misses'] else 'neutral' }}">
+                    Total Misses: {{ results['OPTIMAL']['total_misses'] }}
+                </div>
+                <div class="result {{ 'good' if results['OPTIMAL']['compulsory_misses'] < results['LRU']['compulsory_misses'] else 'bad' if results['OPTIMAL']['compulsory_misses'] > results['LRU']['compulsory_misses'] else 'neutral' }}">
+                    Compulsory Misses: {{ results['OPTIMAL']['compulsory_misses'] }}
+                </div>
+                <div class="result {{ 'good' if results['OPTIMAL']['capacity_misses'] < results['LRU']['capacity_misses'] else 'bad' if results['OPTIMAL']['capacity_misses'] > results['LRU']['capacity_misses'] else 'neutral' }}">
+                    Capacity Misses: {{ results['OPTIMAL']['capacity_misses'] }}
+                </div>
+                <div class="result {{ 'good' if results['OPTIMAL']['total_hits'] > results['LRU']['total_hits'] else 'bad' if results['OPTIMAL']['total_hits'] < results['LRU']['total_hits'] else 'neutral' }}">
+                    Total Hits: {{ results['OPTIMAL']['total_hits'] }}
+                </div>
+            </div>
+        </div>
+
+        <a href="/">Go Back</a>
+    </div>
+</body>
+</html>
